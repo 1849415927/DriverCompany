@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <mirrors>
+        <mirror>
+            <id>mirror</id>
+            <mirrorOf>central,jcenter,!rdc-releases,!rdc-snapshots</mirrorOf>
+            <name>mirror</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
+            <!-- <url>https://maven.aliyun.com/repository/public</url> -->
+        </mirror>
+        <mirror>
+            <id>cg-group</id>
+            <name>capgemini nexus repository</name>
+            <url>http://106.14.133.253:8081/repository/cg-group/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+
+    <servers>
+        <!-- 居然之家 阿里云效 制品仓库 -->
+        <server>
+            <id>rdc-bigdata-releases</id>
+            <username>Re7gs0</username>
+            <password>obHuOLeM68</password>
+        </server>
+        <server>
+            <id>rdc-bigdata-snapshots</id>
+            <username>Re7gs0</username>
+            <password>obHuOLeM68</password>
+        </server>
+        <server>
+            <id>rdc-pointshop-releases</id>
+            <username>DVJdbs</username>
+            <password>G5yqXOS7JI</password>
+        </server>
+        <server>
+            <id>rdc-pointshop-snapshots</id>
+            <username>DVJdbs</username>
+            <password>G5yqXOS7JI</password>
+        </server>
+		<server>
+			<id>tomahawk-releases</id>
+			<username>Re7gs0</username>
+			<password>obHuOLeM68</password>
+		</server>
+		<server>
+			<id>tomahawk-snapshots</id>
+			<username>Re7gs0</username>
+			<password>obHuOLeM68</password>
+		</server>
+        <server>
+            <id>logistics-releases</id>
+            <username>logistics</username>
+            <password>1234_Qwer</password>
+        </server>
+        <server>
+            <id>logistics-snapshots</id>
+            <username>logistics</username>
+            <password>1234_Qwer</password>
+        </server>
+        <server>
+            <id>cg-group</id>
+            <username>logistics</username>
+            <password>1234_Qwer</password>
+        </server>
+    </servers>
+
+    <profiles>
+        <!-- dev -->
+        <profile>
+            <id>dev</id>
+            <repositories>
+                <repository>
+                    <id>rdc-bigdata-releases</id>
+                    <url>https://repo.rdc.aliyun.com/repository/112630-release-1x7qc4/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>rdc-bigdata-snapshots</id>
+                    <url>https://repo.rdc.aliyun.com/repository/112630-snapshot-JQxYHE/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
+
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>nexus</id>
+                    <name>local private nexus</name>
+                    <url>http://maven.oschina.net/content/groups/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>dev</activeProfile>
+    </activeProfiles>
+</settings>
