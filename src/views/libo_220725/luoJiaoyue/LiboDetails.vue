@@ -65,7 +65,7 @@ export default {
   },
   created() {
     // const _this = this
-    // axios.get('http://localhost:8080/luoJiaoyue/' + this.$route.query.id).then(function(resp) {
+    // axios.get('http://localhost:8088/luoJiaoyue/' + this.$route.query.id).then(function(resp) {
     //   console.log(resp)
     //   _this.ruleForm = resp.data.data.detail
     // })

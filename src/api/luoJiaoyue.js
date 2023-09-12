@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 列表
 export function list(data) {
   return request({
-    url: 'http://localhost:8080/luoJiaoyue/list',
+    url: 'http://localhost:8088/luoJiaoyue/list',
     method: 'post',
     data
   })
@@ -12,7 +12,7 @@ export function list(data) {
 // 新增
 export function save(data) {
   return request({
-    url: 'http://localhost:8080/luoJiaoyue/save',
+    url: 'http://localhost:8088/luoJiaoyue/save',
     method: 'post',
     data
   })
@@ -21,7 +21,7 @@ export function save(data) {
 // 修改
 export function update(data) {
   return request({
-    url: 'http://localhost:8080/luoJiaoyue/update',
+    url: 'http://localhost:8088/luoJiaoyue/update',
     method: 'post',
     data
   })
@@ -30,7 +30,7 @@ export function update(data) {
 // 详情
 export function detail(id) {
   return request({
-    url: `http://localhost:8080/luoJiaoyue/${id}`,
+    url: `http://localhost:8088/luoJiaoyue/${id}`,
     method: 'get',
     id
   })
@@ -39,7 +39,7 @@ export function detail(id) {
 // 删除
 export function deleted(idList) {
   return request({
-    url: 'http://localhost:8080/luoJiaoyue/delete',
+    url: 'http://localhost:8088/luoJiaoyue/delete',
     method: 'delete',
     data: idList
   })
@@ -48,7 +48,7 @@ export function deleted(idList) {
 // 导入
 export function importExcel(data) {
   return request({
-    url: 'http://localhost:8080/luoJiaoyue/importExcel',
+    url: 'http://localhost:8088/luoJiaoyue/importExcel',
     method: 'post',
     data
   })
@@ -57,7 +57,7 @@ export function importExcel(data) {
 // 导出
 export function exportExcel(data) {
   return request({
-    url: 'http://localhost:8080/luoJiaoyue/exportExcel',
+    url: 'http://localhost:8088/luoJiaoyue/exportExcel',
     method: 'post',
     responseType: 'blob',
     data

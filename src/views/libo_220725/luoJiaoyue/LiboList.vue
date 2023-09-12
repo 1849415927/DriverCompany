@@ -52,7 +52,7 @@
       <el-button type="primary" @click="reload">重置</el-button>
       <el-button type="primary" icon="el-icon-upload2" style="margin-left: 600px" @click="dialogVisible = true">导入</el-button>
       <el-button type="primary" icon="el-icon-download" style="margin-left: 10px" @click="exportExcels">导出</el-button>
-      <a href="http://localhost:8080/luoJiaoyue/templateDownload"><el-button icon="el-icon-upload" style="margin-left: 10px;color: #4A9FF9">下载模板</el-button></a>
+      <a href="http://localhost:8088/luoJiaoyue/templateDownload"><el-button icon="el-icon-upload" style="margin-left: 10px;color: #4A9FF9">下载模板</el-button></a>
       </el-col>
     </el-row>
 
@@ -262,7 +262,7 @@ export default {
     exportExcels() {
       axios({
         method: 'post',
-        url: 'http://localhost:8080/luoJiaoyue/exportExcel',
+        url: 'http://localhost:8088/luoJiaoyue/exportExcel',
         data: this.data,
         responseType: 'blob',
       })
@@ -298,7 +298,7 @@ export default {
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-      // axios.delete('http://localhost:8080/Libo/delete/' + row.id).then(function(resp) {
+      // axios.delete('http://localhost:8088/Libo/delete/' + row.id).then(function(resp) {
       let idList = []
       idList.push(row.id)
       console.log(idList)
@@ -350,7 +350,7 @@ export default {
       var form = new FormData()
       // 文件对象
       form.append('file', fileObj)
-      axios.post('http://localhost:8080/luoJiaoyue/importExcel', form).then(res => {
+      axios.post('http://localhost:8088/luoJiaoyue/importExcel', form).then(res => {
         param.onSuccess(res)
       }).catch(({ err }) => {
         param.onError(err)
