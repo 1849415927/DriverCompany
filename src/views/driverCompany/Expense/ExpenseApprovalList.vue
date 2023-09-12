@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row style="margin-top: 1%;margin-bottom: 2%">
+    <el-row style="margin-top: 1%;margin-bottom: 2%;margin-left: 1%">
       <el-button type="primary" icon="el-icon-plus" @click="update">报销申请</el-button>
     </el-row>
 
@@ -12,10 +12,13 @@
       <el-table-column
         fixed
         align="center"
-        prop="id"
         label="ID"
         width="100"
-      />
+      >
+        <template slot-scope="scope">
+          {{ scope.$index + 1 }}
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         fixed="left"
@@ -49,7 +52,7 @@
         fixed="left"
         prop="datetime"
         label="申请时间"
-        width="330"
+        width="280"
       />
       <el-table-column
         align="center"
@@ -60,11 +63,10 @@
       />
       <el-table-column
         align="center"
-        fixed="right"
         label="操作"
       >
         <template slot-scope="scope">
-          <el-button type="danger" size="mini" @click="del(scope.row)">删除</el-button>
+          <el-button type="danger" size="mini" :disabled="scope.row.state!=='已提交'?true:false" @click="handleClick(scope.row)">审批</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -91,22 +93,14 @@ export default {
     update() {
       this.$router.push('ExpenseClaim')
     },
-    async del(row) {
-      const _this = this
-      const confirmResult = await this.$confirm('是否确认删除该报销?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).catch(err => err)
-      if (confirmResult !== 'confirm') {
-        return this.$message.info('已取消删除')
-      }
-      axios.delete('http://localhost:8088/expense/deleteById/' + row.id).then(function(resp) {
-        _this.$message('删除成功')
-        // 回跳查询页
-        _this.$router.push('/ExpenseApprovalList')
-        window.location.reload()
+    handleClick(row) {
+      this.$router.push({
+        path: 'ExpenseApproval',
+        query: {
+          id: row.id
+        }
       })
+      console.log(row)
     }
   }
 }

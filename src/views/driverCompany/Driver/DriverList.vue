@@ -1,14 +1,52 @@
 <template>
   <div>
-    <el-row style="margin-top: 1%;margin-bottom: 2%">
-      <el-col :span="15">
-        <el-input v-model="name" type="text" placeholder="请输入司机姓名" style="width: 40%">
+    <el-row style="margin-top: 1%;margin-bottom: 2%;margin-left: 1%">
+      <el-col :span="13">
+        <el-input v-model="data.requestBody.name" type="text" placeholder="请输入司机姓名" style="width: 40%">
           <el-button slot="append" icon="el-icon-search" @click="refresh" />
         </el-input>
       </el-col>
       <el-button type="primary" icon="el-icon-search" @click="refresh">查询</el-button>
-      <el-button type="primary" icon="el-icon-plus" @click="update">新增</el-button>
+      <el-button type="primary" icon="el-icon-plus" style="margin-right: 40px" @click="update">新增</el-button>
+      <a href="http://localhost:8088/driver/templateDownload"><el-button icon="el-icon-upload" style="margin-left: 10px;color: #4A9FF9">下载模板</el-button></a>
+      <el-button type="primary" icon="el-icon-upload2" style="margin-left: 10px" @click="dialogVisible = true">导入</el-button>
+      <a href="http://localhost:8088/driver/export_driver_excel"><el-button type="primary" icon="el-icon-download" style="margin-left: 10px">导出</el-button></a>
     </el-row>
+
+    <el-dialog
+      title="导入司机信息"
+      :visible.sync="dialogVisible"
+      width="50%"
+      :before-close="handleClose"
+    >
+      <span>
+        <el-upload
+          ref="upload"
+          class="upload-demo"
+          drag
+          action=""
+          :before-upload="beforeAvatarUpload"
+          :http-request="uploadSectionFile"
+          :auto-upload="false"
+          :file-list="fileList"
+          :limit="limitnum"
+          :on-error="uploadFileError"
+          :on-success="uploadFileSuccess"
+          :on-exceed="exceedFile"
+          :on-remove="removeFile"
+          multiple
+        >
+          <i class="el-icon-upload" />
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div slot="tip" class="el-upload__tip">只能上传xls/xlsx文件，且不超过100M</div>
+          <div />
+        </el-upload>
+      </span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="sub">确 定</el-button>
+      </span>
+    </el-dialog>
 
     <el-table
       :data="tableData"
@@ -18,10 +56,13 @@
       <el-table-column
         fixed
         align="center"
-        prop="id"
         label="ID"
-        width="100"
-      />
+        width="150"
+      >
+        <template slot-scope="scope">
+          {{ scope.$index + 1 }}
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         fixed="left"
@@ -38,7 +79,7 @@
       />
       <el-table-column
         align="center"
-        prop="idnumber"
+        prop="username"
         label="用户名"
         width="155"
       />
@@ -83,10 +124,11 @@
     </el-table>
     <el-pagination
       background
-      layout="prev, pager, next"
-      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :page-size="data.pageSize"
       :total="total"
       @current-change="page"
+      @size-change="handleSizeChange"
     />
     <!--    </el-form>-->
   </div>
@@ -94,45 +136,59 @@
 
 <script>
 import axios from 'axios'
-import { selectByLike } from '@/api/driver'
+import { DriverList, importData } from '@/api/driver'
 
 export default {
-  inject: ['reload'],
+  // inject: ['reload'],
 
   data() {
     return {
-      name: '',
-      pageSize: '',
-      total: '',
-      tableData: ''
+      data: {
+        name: '',
+        pageSize: 10,
+        pageNo: 1,
+        requestBody: {
+          name: ''
+        }
+      },
+      total: 0,
+      tableData: [],
+      fileList: [], // 上传的文件列表
+      limitnum: 2, // 最大允许上传个数
+      dialogVisible: false
     }
   },
   created() {
-    const _this = this
-    axios.get('http://localhost:8088/driver/pagelist/1/5').then(function(resp) {
-      console.log(resp)
-      _this.tableData = resp.data.records
-      _this.pageSize = resp.data.size
-      _this.total = resp.data.total
-    })
+    // const _this = this
+    // axios.get('http://localhost:8088/driver/list').then(function(resp) {
+    //   console.log(resp)
+    //   _this.tableData = resp.data.records
+    //   _this.pageSize = resp.data.size
+    //   _this.total = resp.data.total
+    // })
+    this.refresh()
   },
   methods: {
     refresh() {
-      const _this = this
-      if (_this.name === '') {
-        // 回跳查询页
-        axios.get('http://localhost:8088/driver/pagelist/1/5').then(function(resp) {
-          console.log(resp)
-          _this.tableData = resp.data.records
-          _this.pageSize = resp.data.size
-          _this.total = resp.data.total
-        })
-      } else {
-        axios.get('http://localhost:8088/driver/getFindByName/' + _this.name).then(function(resp) {
-          console.log(resp)
-          _this.tableData = resp.data
-        })
-      }
+      DriverList(this.data).then(res => {
+        this.tableData = res.data.driverPage.records
+        this.total = res.data.driverPage.total
+      })
+      // const _this = this
+      // if (_this.name === '') {
+      //   // 回跳查询页
+      //   axios.get('http://localhost:8088/driver/list').then(function(resp) {
+      //     console.log(resp)
+      //     _this.tableData = resp.data.records
+      //     _this.pageSize = resp.data.size
+      //     _this.total = resp.data.total
+      //   })
+      // } else {
+      //   axios.get('http://localhost:8088/driver/getFindByName/' + _this.name).then(function(resp) {
+      //     console.log(resp)
+      //     _this.tableData = resp.data
+      //   })
+      // }
     },
     update() {
       this.$router.push('DriverAdd')
@@ -155,14 +211,30 @@ export default {
       })
       console.log(row)
     },
-    page(currentPage) {
+    // 条数
+    handleSizeChange(val) {
+      this.data.pageSize = val
+      DriverList(this.data).then(res => {
+        this.tableData = res.data.driverPage.records
+      })
+    },
+    // 页数
+    page(val) {
+      this.data.pageNo = val
+      DriverList(this.data).then(res => {
+        this.tableData = res.data.driverPage.records
+      })
+    },
+    // 导出
+    driverexport() {
       const _this = this
-      axios.get('http://localhost:8088/driver/pagelist/' + currentPage + '/5').then(function(resp) {
+      axios.get('http://localhost:8088/driver/export_driver_excel/' + _this.name).then(function(resp) {
         _this.tableData = resp.data.records
         _this.pageSize = resp.data.size
         _this.total = resp.data.total
       })
     },
+    // 删除
     async del(row) {
       const _this = this
       const confirmResult = await this.$confirm('是否确认删除该司机?', '提示', {
@@ -179,7 +251,83 @@ export default {
         _this.$router.push('/DriverList')
         window.location.reload()
       })
+    },
+    // 导入 弹出框
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
+    },
+    // 上传文件格式限制
+    beforeAvatarUpload(file) {
+      // const isJPG = file.type === 'image/jpeg';
+      var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+      const extension = testmsg === 'xls'
+      const extension2 = testmsg === 'xlsx'
+      const isLt2M = file.size / 1024 / 1024 < 100
+
+      // if (!isJPG) {
+      //   this.$message.error('上传头像图片只能是 JPG 格式!');
+      // }
+      if (!extension && !extension2) {
+        this.$message.error('只能上传xls/xlsx文件')
+        return false
+      }
+      if (!isLt2M) {
+        this.$message.error('上传文件大小不能超过100MB!')
+      }
+      // return isJPG && isLt2M;
+      return (extension || extension2) && isLt2M
+    },
+    // 点击确定按钮上传
+    sub() {
+      this.$refs.upload.submit()
+    },
+    // 自定义上传
+    uploadSectionFile(param) {
+      var fileObj = param.file
+      var form = new FormData()
+      // 文件对象
+      form.append('file', fileObj)
+      axios.post('http://192.168.56.1:8088/driver/importData', form).then(res => {
+        param.onSuccess(res)
+      }).catch(({ err }) => {
+        param.onError(err)
+      })
+    },
+    // 上传失败
+    // eslint-disable-next-line handle-callback-err
+    uploadFileError(err, file, fileList) {
+      this.$message.error('上传失败！')
+    },
+    // 上传成功
+    uploadFileSuccess(response, file, fileList) {
+      if (response.data.code === 20000) {
+        file.response = response.data.data
+        this.fileList.push(file)
+        this.$message.success(response.data.message)
+      } else {
+        this.$message.error(response.data.message) // 文件上传错误提示
+      }
+    },
+    // 文件超出个数限制时的钩子
+    exceedFile(files, fileList) {
+      this.$message.error('只能上传' + this.limitnum + '个文件')
+    },
+    // 删除文件
+    removeFile(file, fileList) {
+      this.fileList = fileList
     }
   }
 }
 </script>
+
+<style>
+.upload-demo{
+  margin: auto;
+  width: 50%;
+}
+
+</style>

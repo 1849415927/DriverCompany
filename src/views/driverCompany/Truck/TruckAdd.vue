@@ -1,8 +1,15 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
+  <el-form
+    ref="ruleForm"
+    style="margin-top: 2%"
+    :model="ruleForm"
+    :rules="rules"
+    label-width="100px"
+    class="demo-ruleForm"
+  >
 
     <el-form-item label="车牌号" prop="license">
-      <el-input v-model="ruleForm.license" />
+      <el-input v-model="ruleForm.license" style="width: 17%" />
     </el-form-item>
 
     <el-form-item style="margin-top: 5%" label="状态" prop="status">
@@ -74,12 +81,16 @@ export default {
         if (valid) {
           axios.post('http://localhost:8088/truck/insert', _this.ruleForm).then(function(resp) {
             console.log(resp)
-            _this.$message({
-              message: '添加成功',
-              type: 'success'
-            })
-            // 回跳查询页面
-            _this.$router.push('/TruckList')
+            if (resp.data.code === 20000) {
+              _this.$message({
+                message: '新增成功',
+                type: 'success'
+              })
+              // 回跳查询页面
+              _this.$router.push('/TruckList')
+            } else {
+              _this.$message.error(resp.data.message)
+            }
           })
         } else {
           return false

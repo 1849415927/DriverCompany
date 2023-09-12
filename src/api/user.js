@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function login1(data) {
+  return request({
+    url: 'http://localhost:8088/driver/login',
+    method: 'post',
+    data
+  })
+}
+
 export function login(data) {
   return request({
     url: '/vue-element-admin/user/login',

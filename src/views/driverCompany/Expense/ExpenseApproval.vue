@@ -3,13 +3,13 @@
     <el-row>
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
         <el-form-item prop="proposer" label="申请人">
-          <el-input v-model="ruleForm.proposer" />
+          <el-input v-model="ruleForm.proposer" disabled />
         </el-form-item>
       </el-col>
 
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
         <el-form-item prop="type" label="报销类型">
-          <el-select v-model="ruleForm.type" placeholder="请选择">
+          <el-select v-model="ruleForm.type" placeholder="请选择" disabled>
             <el-option label="汽油费" value="汽油费" />
             <el-option label="卡车维修费" value="卡车维修费" />
           </el-select>
@@ -18,13 +18,13 @@
 
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
         <el-form-item prop="price" label="报销金额">
-          <el-input v-model="ruleForm.price" />
+          <el-input v-model="ruleForm.price" disabled />
         </el-form-item>
       </el-col>
 
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
         <el-form-item prop="month" label="报销月份">
-          <el-select v-model="ruleForm.month" placeholder="请选择">
+          <el-select v-model="ruleForm.month" placeholder="请选择" disabled>
             <el-option label="1" value="1" />
             <el-option label="2" value="2" />
             <el-option label="3" value="3" />
@@ -42,14 +42,14 @@
       </el-col>
 
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
-        <el-form-item v-show="false" prop="datetime" label="申请时间">
+        <el-form-item prop="datetime" label="申请时间">
           <el-date-picker v-model="ruleForm.datetime" disabled type="datetime" />
         </el-form-item>
       </el-col>
 
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
-        <el-form-item v-show="false" prop="state" label="状态">
-          <el-select v-model="ruleForm.state" placeholder="请选择" disabled>
+        <el-form-item prop="state" label="状态">
+          <el-select v-model="ruleForm.state" placeholder="请选择">
             <el-option label="已提交" value="已提交" />
             <el-option label="审批通过" value="审批通过" />
             <el-option label="驳回" value="驳回" />
@@ -59,8 +59,7 @@
 
     </el-row>
     <el-form-item>
-      <el-button style="margin-left: 40%;margin-top: 10%" type="primary" @click="submitForm('ruleForm')">添加</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
+      <el-button style="margin-left: 40%;margin-top: 10%" type="primary" @click="submitForm('ruleForm')">确定</el-button>
       <el-button @click="goback('ruleForm')">返回</el-button>
     </el-form-item>
   </el-form>
@@ -83,8 +82,8 @@ export default {
         type: '',
         price: '',
         month: '',
-        datetime: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
-        state: '已提交'
+        datetime: '',
+        state: ''
       },
       rules: {
         proposer: [
@@ -118,7 +117,6 @@ export default {
     const _this = this
     axios.get('http://localhost:8088/expense/selectById/' + this.$route.query.id).then(function(resp) {
       console.log(resp)
-      this.ruleForm.datetime = new Date()
       _this.ruleForm = resp.data
     })
   },
@@ -128,10 +126,10 @@ export default {
       const _this = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios.post('http://localhost:8088/expense/insert', _this.ruleForm).then(function(resp) {
+          axios.put('http://localhost:8088/expense/expenseApproval', _this.ruleForm).then(function(resp) {
             console.log(resp)
             _this.$message({
-              message: '添加成功',
+              message: '修改成功',
               type: 'success'
             })
             // 回跳查询页面
@@ -141,10 +139,6 @@ export default {
           return false
         }
       })
-    },
-    // 重置表单
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
     },
     goback() {
       // 回跳查询页面

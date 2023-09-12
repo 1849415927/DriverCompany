@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row style="margin-top: 1%;margin-bottom: 2%">
+    <el-row style="margin-top: 1%;margin-bottom: 2%;margin-left: 1%">
       <el-button type="primary" icon="el-icon-plus" @click="update">新增</el-button>
     </el-row>
 
@@ -9,13 +9,22 @@
       border
       style="width: 100%"
     >
-      <el-table-column fixed align="center" prop="id" label="ID" width="100" />
+      <el-table-column
+        fixed
+        align="center"
+        label="ID"
+        width="100"
+      >
+        <template slot-scope="scope">
+          {{ scope.$index + 1 }}
+        </template>
+      </el-table-column>
 
       <el-table-column align="center" prop="name" label="角色名" width="300" />
 
       <el-table-column align="center" prop="code" label="角色code" width="300" />
 
-      <el-table-column align="center" fixed="right" label="操作">
+      <el-table-column align="center" fixed="right" label="操作" width="500">
 
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="handleClick(scope.row)">修改</el-button>

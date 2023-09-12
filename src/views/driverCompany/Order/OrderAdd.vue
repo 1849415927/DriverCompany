@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
+  <el-form ref="ruleForm" style="margin-top: 2%" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
     <el-row>
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
         <el-form-item prop="distance" label="送货距离">

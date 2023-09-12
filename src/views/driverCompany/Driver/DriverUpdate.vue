@@ -1,9 +1,6 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
+  <el-form ref="ruleForm" style="margin-top: 2%" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
 
-    <el-form-item label="ID">
-      <el-input v-model="ruleForm.id" readonly />
-    </el-form-item>
     <el-form-item label="驾驶证号" prop="idcard">
       <el-input v-model="ruleForm.idcard" @input="filteIdcard" />
     </el-form-item>
@@ -16,8 +13,8 @@
       <el-input v-model="ruleForm.phone" />
     </el-form-item>
 
-    <el-form-item label="用户名" prop="idnumber">
-      <el-input v-model="ruleForm.idnumber" disabled />
+    <el-form-item label="用户名" prop="username">
+      <el-input v-model="ruleForm.username" disabled />
     </el-form-item>
 
     <el-form-item label="密码" prop="password">
@@ -54,7 +51,7 @@ export default {
         idcard: '',
         name: '',
         phone: '',
-        idnumber: '',
+        username: '',
         password: '',
         email: '',
         state: ''
@@ -73,7 +70,7 @@ export default {
             validator: function(rule, value, callback) {
               if (!value) {
                 callback()
-              } else if (/^1[34578]\d{9}$/.test(value) == false) {
+              } else if (/^1[34578]\d{9}$/.test(value) === false) {
                 callback(new Error('手机号格式错误'))
               } else {
                 callback()
@@ -82,7 +79,7 @@ export default {
             trigger: 'blur'
           }
         ],
-        // idnumber: [
+        // username: [
         //   { required: true, message: '请输入用户名', trigger: 'change' }
         // ],
         password: [
@@ -112,12 +109,16 @@ export default {
         if (valid) {
           axios.put('http://localhost:8088/driver/update', _this.ruleForm).then(function(resp) {
             console.log(resp)
-            _this.$message({
-              message: '修改成功',
-              type: 'success'
-            })
-            // 回跳查询页面
-            _this.$router.push('/DriverList')
+            if (resp.data.code === 20000) {
+              _this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+              // 回跳查询页面
+              _this.$router.push('/DriverList')
+            } else {
+              _this.$message.error(resp.data.message)
+            }
           })
         } else {
           return false
@@ -127,7 +128,7 @@ export default {
     // 邮箱验证
     sendEmail: function() {
       var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
-      if (this.ruleForm.email != '' && !regEmail.test(this.ruleForm.email)) {
+      if (this.ruleForm.email !== '' && !regEmail.test(this.ruleForm.email)) {
         this.$message({
           message: '请输入合法邮箱',
           type: 'error'
@@ -137,8 +138,8 @@ export default {
     },
     // 用户名取驾驶证号后6位
     filteIdcard() {
-      this.ruleForm.idnumber = this.ruleForm.idcard.slice(6)
-      return this.ruleForm.idnumber
+      this.ruleForm.username = this.ruleForm.idcard.slice(6)
+      return this.ruleForm.username
     },
     // 重置表单
     resetForm(formName) {

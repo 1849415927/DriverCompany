@@ -57,12 +57,16 @@ export default {
         if (valid) {
           axios.post('http://localhost:8088/permission/insert', _this.ruleForm).then(function(resp) {
             console.log(resp)
-            _this.$message({
-              message: '添加成功',
-              type: 'success'
-            })
-            // 回跳查询页面
-            _this.$router.push('/PermissionList')
+            if (resp.data.code === 20000) {
+              _this.$message({
+                message: '新增成功',
+                type: 'success'
+              })
+              // 回跳查询页面
+              _this.$router.push('/PermissionList')
+            } else {
+              _this.$message.error(resp.data.message)
+            }
           })
         } else {
           return false

@@ -1,7 +1,7 @@
 <template>
   <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
 
-    <el-form-item label="驾驶证号" prop="idcard">
+    <el-form-item style="margin-top: 2%" label="驾驶证号" prop="idcard">
       <el-input v-model="ruleForm.idcard" @input="filteIdcard" />
     </el-form-item>
 
@@ -13,8 +13,8 @@
       <el-input v-model="ruleForm.phone" />
     </el-form-item>
 
-    <el-form-item label="用户名" prop="idnumber">
-      <el-input v-model="ruleForm.idnumber" disabled />
+    <el-form-item label="用户名" prop="username">
+      <el-input v-model="ruleForm.username" disabled />
     </el-form-item>
 
     <el-form-item label="密码" prop="password">
@@ -55,7 +55,7 @@ export default {
         idcard: '',
         name: '',
         phone: '',
-        idnumber: '',
+        username: '',
         password: '123456',
         email: '',
         state: '0'
@@ -83,7 +83,7 @@ export default {
             trigger: 'blur'
           }
         ],
-        // idnumber: [
+        // username: [
         //   { required: true, message: '请输入用户名', trigger: 'blur' }
         // ],
         password: [
@@ -113,12 +113,16 @@ export default {
         if (valid) {
           axios.post('http://localhost:8088/driver/insert', _this.ruleForm).then(function(resp) {
             console.log(resp)
-            _this.$message({
-              message: '添加成功',
-              type: 'success'
-            })
-            // 回跳查询页面
-            _this.$router.push('/DriverList')
+            if (resp.data.code === 20000) {
+              _this.$message({
+                message: '新增成功',
+                type: 'success'
+              })
+              // 回跳查询页面
+              _this.$router.push('/DriverList')
+            } else {
+              _this.$message.error(resp.data.message)
+            }
           })
         } else {
           return false
@@ -138,8 +142,8 @@ export default {
     },
     // 用户名取驾驶证号后6位
     filteIdcard() {
-      this.ruleForm.idnumber = this.ruleForm.idcard.slice(6)
-      return this.ruleForm.idnumber
+      this.ruleForm.username = this.ruleForm.idcard.slice(6)
+      return this.ruleForm.username
     },
     // 重置表单
     resetForm(formName) {

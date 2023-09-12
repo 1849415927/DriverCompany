@@ -1,11 +1,5 @@
 <template>
-  <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
-
-    <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
-      <el-form-item label="ID">
-        <el-input v-model="ruleForm.id" readonly />
-      </el-form-item>
-    </el-col>
+  <el-form ref="ruleForm" style="margin-top: 2%" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
 
     <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
       <el-form-item label="驾驶证号" prop="idcard">
@@ -26,8 +20,8 @@
     </el-col>
 
     <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
-      <el-form-item label="用户名" prop="idnumber">
-        <el-input v-model="ruleForm.idnumber" readonly />
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model="ruleForm.username" readonly />
       </el-form-item>
     </el-col>
 
@@ -53,7 +47,7 @@
     </el-col>
 
     <el-form-item>
-      <el-button type="primary" style="margin-left: 40%;margin-top: 10%" @click="goback('ruleForm')">返回</el-button>
+      <el-button type="primary" style="margin-left: 20%;margin-top: 10%" @click="goback('ruleForm')">返回</el-button>
     </el-form-item>
 
   </el-form>
@@ -70,7 +64,7 @@ export default {
         idcard: '',
         name: '',
         phone: '',
-        idnumber: '',
+        username: '',
         password: '',
         email: '',
         state: ''
