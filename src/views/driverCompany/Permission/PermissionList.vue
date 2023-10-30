@@ -46,7 +46,7 @@ export default {
   },
   created() {
     const _this = this
-    axios.get('http://localhost:8088/permission/selectList').then(function(resp) {
+    axios.get('http://58.87.91.31:8088/permission/selectList').then(function(resp) {
       console.log(resp)
       _this.tableData = resp.data
     })
@@ -74,7 +74,7 @@ export default {
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-      axios.delete('http://localhost:8088/permission/deleteById/' + row.id).then(function(resp) {
+      axios.delete('http://58.87.91.31:8088/permission/deleteById/' + row.id).then(function(resp) {
         _this.$message('删除成功')
         // 回跳查询页
         _this.$router.push('/PermissionList')

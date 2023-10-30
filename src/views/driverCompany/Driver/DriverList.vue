@@ -8,9 +8,9 @@
       </el-col>
       <el-button type="primary" icon="el-icon-search" @click="refresh">查询</el-button>
       <el-button type="primary" icon="el-icon-plus" style="margin-right: 40px" @click="update">新增</el-button>
-      <a href="http://localhost:8088/driver/templateDownload"><el-button icon="el-icon-upload" style="margin-left: 10px;color: #4A9FF9">下载模板</el-button></a>
+      <a href="http://58.87.91.31:8088/driver/templateDownload"><el-button icon="el-icon-upload" style="margin-left: 10px;color: #4A9FF9">下载模板</el-button></a>
       <el-button type="primary" icon="el-icon-upload2" style="margin-left: 10px" @click="dialogVisible = true">导入</el-button>
-      <a href="http://localhost:8088/driver/export_driver_excel"><el-button type="primary" icon="el-icon-download" style="margin-left: 10px">导出</el-button></a>
+      <a href="http://58.87.91.31:8088/driver/export_driver_excel"><el-button type="primary" icon="el-icon-download" style="margin-left: 10px">导出</el-button></a>
     </el-row>
 
     <el-dialog
@@ -160,7 +160,7 @@ export default {
   },
   created() {
     // const _this = this
-    // axios.get('http://localhost:8088/driver/list').then(function(resp) {
+    // axios.get('http://58.87.91.31:8088/driver/list').then(function(resp) {
     //   console.log(resp)
     //   _this.tableData = resp.data.records
     //   _this.pageSize = resp.data.size
@@ -177,14 +177,14 @@ export default {
       // const _this = this
       // if (_this.name === '') {
       //   // 回跳查询页
-      //   axios.get('http://localhost:8088/driver/list').then(function(resp) {
+      //   axios.get('http://58.87.91.31:8088/driver/list').then(function(resp) {
       //     console.log(resp)
       //     _this.tableData = resp.data.records
       //     _this.pageSize = resp.data.size
       //     _this.total = resp.data.total
       //   })
       // } else {
-      //   axios.get('http://localhost:8088/driver/getFindByName/' + _this.name).then(function(resp) {
+      //   axios.get('http://58.87.91.31:8088/driver/getFindByName/' + _this.name).then(function(resp) {
       //     console.log(resp)
       //     _this.tableData = resp.data
       //   })
@@ -228,7 +228,7 @@ export default {
     // 导出
     driverexport() {
       const _this = this
-      axios.get('http://localhost:8088/driver/export_driver_excel/' + _this.name).then(function(resp) {
+      axios.get('http://58.87.91.31:8088/driver/export_driver_excel/' + _this.name).then(function(resp) {
         _this.tableData = resp.data.records
         _this.pageSize = resp.data.size
         _this.total = resp.data.total
@@ -245,7 +245,7 @@ export default {
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-      axios.delete('http://localhost:8088/driver/deleteById/' + row.id).then(function(resp) {
+      axios.delete('http://58.87.91.31:8088/driver/deleteById/' + row.id).then(function(resp) {
         _this.$message('删除成功')
         // 回跳查询页
         _this.$router.push('/DriverList')
@@ -291,7 +291,7 @@ export default {
       var form = new FormData()
       // 文件对象
       form.append('file', fileObj)
-      axios.post('http://192.168.56.1:8088/driver/importData', form).then(res => {
+      axios.post('http://58.87.91.31:8088/driver/importData', form).then(res => {
         param.onSuccess(res)
       }).catch(({ err }) => {
         param.onError(err)

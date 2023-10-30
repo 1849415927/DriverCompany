@@ -80,7 +80,7 @@ export default {
   },
   created() {
     // const _this = this
-    // axios.get('http://localhost:8088/truck/pagelist/1/5').then(function(resp) {
+    // axios.get('http://58.87.91.31:8088/truck/pagelist/1/5').then(function(resp) {
     //   console.log(resp)
     //   _this.tableData = resp.data.records
     //   _this.pageSize = resp.data.size
@@ -93,14 +93,14 @@ export default {
       // const _this = this
       // if (_this.license === '') {
       //   // 回跳查询页
-      //   axios.get('http://localhost:8088/truck/pagelist/1/5').then(function(resp) {
+      //   axios.get('http://58.87.91.31:8088/truck/pagelist/1/5').then(function(resp) {
       //     console.log(resp)
       //     _this.tableData = resp.data.records
       //     _this.pageSize = resp.data.size
       //     _this.total = resp.data.total
       //   })
       // } else {
-      //   axios.get('http://localhost:8088/truck/getFindByLicense/' + _this.license).then(function(resp) {
+      //   axios.get('http://58.87.91.31:8088/truck/getFindByLicense/' + _this.license).then(function(resp) {
       //     console.log(resp)
       //     _this.tableData = resp.data
       //   })
@@ -132,7 +132,7 @@ export default {
     // 页数
     page(val) {
       // const _this = this
-      // axios.get('http://localhost:8088/truck/pagelist/' + currentPage + '/5').then(function(resp) {
+      // axios.get('http://58.87.91.31:8088/truck/pagelist/' + currentPage + '/5').then(function(resp) {
       //   _this.tableData = resp.data.records
       //   _this.pageSize = resp.data.size
       //   _this.total = resp.data.total
@@ -152,7 +152,7 @@ export default {
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-      axios.delete('http://localhost:8088/truck/deleteById/' + row.id).then(function(resp) {
+      axios.delete('http://58.87.91.31:8088/truck/deleteById/' + row.id).then(function(resp) {
         _this.$message('删除成功')
         // 回跳查询页
         _this.$router.push('/TruckList')

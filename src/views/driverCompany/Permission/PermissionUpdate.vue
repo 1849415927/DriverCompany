@@ -44,7 +44,7 @@ export default {
   },
   created() {
     const _this = this
-    axios.get('http://localhost:8088/permission/selectById/' + this.$route.query.id).then(function(resp) {
+    axios.get('http://58.87.91.31:8088/permission/selectById/' + this.$route.query.id).then(function(resp) {
       console.log(resp)
       _this.ruleForm = resp.data
     })
@@ -55,7 +55,7 @@ export default {
       const _this = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios.put('http://localhost:8088/permission/update', _this.ruleForm).then(function(resp) {
+          axios.put('http://58.87.91.31:8088/permission/update', _this.ruleForm).then(function(resp) {
             console.log(resp)
             if (resp.data.code === 20000) {
               _this.$message({

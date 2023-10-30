@@ -70,7 +70,7 @@ export default {
   },
   created() {
     const _this = this
-    axios.post('http://localhost:8088/statement/statementList/' + _this.$route.query.date).then(function(resp) {
+    axios.post('http://58.87.91.31:8088/statement/statementList/' + _this.$route.query.date).then(function(resp) {
       console.log(resp)
       _this.tableData = resp.data
     })

@@ -72,7 +72,7 @@ export default {
   },
   created() {
     const _this = this
-    axios.get('http://localhost:8088/statement/selectAll').then(function(resp) {
+    axios.get('http://58.87.91.31:8088/statement/selectAll').then(function(resp) {
       console.log(resp)
       _this.tableData = resp.data
       _this.tableData.forEach(function(item) {

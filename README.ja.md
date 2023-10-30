@@ -160,7 +160,7 @@ npm install
 npm run dev
 ```
 
-http://localhost:9527 が自動的に開きます。
+http://58.87.91.31:9527 が自動的に開きます。
 
 ## Build
 

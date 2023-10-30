@@ -137,7 +137,7 @@ export default {
   },
   created() {
     // const _this = this
-    // axios.get('http://localhost:8088/order/pagelist/1/5').then(function(resp) {
+    // axios.get('http://58.87.91.31:8088/order/pagelist/1/5').then(function(resp) {
     //   console.log(resp)
     //   _this.tableData = resp.data.records
     //   _this.pageSize = resp.data.size
@@ -183,7 +183,7 @@ export default {
     // 页数
     page(val) {
       // const _this = this
-      // axios.get('http://localhost:8088/order/pagelist/' + currentPage + '/5').then(function(resp) {
+      // axios.get('http://58.87.91.31:8088/order/pagelist/' + currentPage + '/5').then(function(resp) {
       //   _this.tableData = resp.data.records
       //   _this.pageSize = resp.data.size
       //   _this.total = resp.data.total
@@ -203,7 +203,7 @@ export default {
       if (confirmResult !== 'confirm') {
         return this.$message.info('取消操作')
       }
-      axios.delete('http://localhost:8088/order/deleteById/' + row.orderId).then(function(resp) {
+      axios.delete('http://58.87.91.31:8088/order/deleteById/' + row.orderId).then(function(resp) {
         _this.$message('取消订单成功')
         // 回跳查询页
         _this.$router.push('/OrderList')

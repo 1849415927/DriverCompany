@@ -73,7 +73,7 @@ export default {
   },
   created() {
     const _this = this
-    axios.get('http://localhost:8088/driver/selectById/' + this.$route.query.id).then(function(resp) {
+    axios.get('http://58.87.91.31:8088/driver/selectById/' + this.$route.query.id).then(function(resp) {
       console.log(resp)
       _this.ruleForm = resp.data
     })

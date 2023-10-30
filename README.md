@@ -164,7 +164,7 @@ npm install
 npm run dev
 ```
 
-This will automatically open http://localhost:9527
+This will automatically open http://58.87.91.31:9527
 
 ## Build
 

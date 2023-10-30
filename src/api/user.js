@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login1(data) {
   return request({
-    url: 'http://localhost:8088/driver/login',
+    url: 'http://58.87.91.31:8088/driver/login',
     method: 'post',
     data
   })

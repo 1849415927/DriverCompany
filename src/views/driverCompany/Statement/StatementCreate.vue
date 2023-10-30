@@ -41,7 +41,7 @@ export default {
       const _this = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios.post('http://localhost:8088/statement/insertStatementList', _this.ruleForm).then(function(resp) {
+          axios.post('http://58.87.91.31:8088/statement/insertStatementList', _this.ruleForm).then(function(resp) {
             console.log(resp)
             if (resp.data === 0) {
               _this.$message({
