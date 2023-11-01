@@ -60,7 +60,7 @@
     <el-dialog
       title="导入礼簙信息"
       :visible.sync="dialogVisible"
-      width="50%"
+      width="100%"
       :before-close="handleClose"
     >
       <span>
