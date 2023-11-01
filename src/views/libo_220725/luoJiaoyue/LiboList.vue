@@ -47,10 +47,11 @@
       </el-col>
 
       <el-col :xs="24" :sm="24" :md="12" :lg="24" :xl="24">
-        <el-button type="primary" icon="el-icon-plus" @click="save" disabled>新增</el-button>
+        <el-button type="primary" icon="el-icon-plus" @click="save">新增</el-button>
         <el-button type="primary" icon="el-icon-search" @click="refresh">查询</el-button>
       <el-button type="primary" @click="reload">重置</el-button>
-      <el-button type="primary" icon="el-icon-upload2" style="margin-left: 600px" @click="dialogVisible = true">导入</el-button>
+      <br/><br/><br/>
+      <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true">导入</el-button>
       <el-button type="primary" icon="el-icon-download" style="margin-left: 10px" @click="exportExcels">导出</el-button>
       <a href="http://58.87.91.31:8088/luoJiaoyue/templateDownload"><el-button icon="el-icon-upload" style="margin-left: 10px;color: #4A9FF9">下载模板</el-button></a>
       </el-col>
@@ -100,7 +101,7 @@
         fixed
         align="center"
         label="ID"
-        width="100"
+        width="50%"
       >
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
@@ -110,44 +111,44 @@
         align="center"
         prop="name"
         label="姓名"
-        width="140"
+        width="80%"
       />
       <el-table-column
         align="center"
         prop="money"
         label="礼金"
-        width="140"
+        width="80%"
       />
       <el-table-column
         align="center"
         prop="address"
         label="地址"
-        width="150"
-      />
-      <el-table-column
-        align="center"
-        prop="present"
-        label="礼品"
-        width="150"
+        width="80%"
       />
       <el-table-column
         align="center"
         prop="type"
         label="类型"
-        width="100"
+        width="80%"
+      />
+      <el-table-column
+        align="center"
+        prop="present"
+        label="礼品"
+        width="80%"
       />
       <el-table-column
         align="center"
         prop="personnel"
         label="人员"
-        width="150"
+        width="120%"
       />
 
       <el-table-column
         align="center"
         fixed="right"
         label="操作"
-        width="300"
+        width="90%"
       >
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="details(scope.row)">查看详情</el-button>

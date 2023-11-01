@@ -81,6 +81,20 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
+    redirect: '/LiboList',
+    hidden: true,
+    children: [
+      {
+        path: '/LiboList',
+        component: () => import('@/views/libo_220725/luoJiaoyue/LiboList'),
+        name: '礼簙信息列表',
+        meta: { title: '礼簙信息列表', icon: 'el-icon-user', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Layout,
     redirect: '/dashboard',
     hidden: true,
     children: [
@@ -92,19 +106,19 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/documentation',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/documentation/index'),
-        name: 'Documentation',
-        meta: { title: 'documentation', icon: 'documentation', affix: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/documentation',
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/documentation/index'),
+  //       name: 'Documentation',
+  //       meta: { title: 'documentation', icon: 'documentation', affix: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/guide',
     component: Layout,
