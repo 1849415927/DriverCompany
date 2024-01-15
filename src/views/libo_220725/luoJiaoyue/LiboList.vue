@@ -158,9 +158,11 @@
       </el-table-column>
     </el-table>
     <el-pagination
+      small
       background
       layout="total, sizes, prev, pager, next, jumper"
       :page-size="data.size"
+      :page-sizes="[10, 20, 50, 100, 200]"
       :total="total"
       @current-change="page"
       @size-change="handleSizeChange"
