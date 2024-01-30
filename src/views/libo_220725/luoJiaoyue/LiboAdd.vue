@@ -20,6 +20,12 @@
     </el-col>
 
     <el-col :span="12">
+       <el-form-item label="已还礼金" prop="paidMoney">
+         <el-input v-model="ruleForm.paidMoney" disabled/>
+       </el-form-item>
+    </el-col>
+
+    <el-col :span="12">
       <el-form-item label="礼品" prop="present">
         <el-input v-model="ruleForm.present"/>
       </el-form-item>
@@ -34,6 +40,12 @@
     <el-col :span="12">
       <el-form-item label="人员" prop="personnel">
         <el-input v-model="ruleForm.personnel"/>
+      </el-form-item>
+    </el-col>
+
+    <el-col :span="12">
+      <el-form-item label="备注" prop="remark">
+       <el-input v-model="ruleForm.remark"/>
       </el-form-item>
     </el-col>
       </el-row>
@@ -63,9 +75,12 @@ export default {
         name: '',
         money: '',
         address: '',
+        paidMoney: 0,
+        residueMoney: '',
         present: '',
         type: '',
-        personnel: ''
+        personnel: '',
+        remark: ''
       },
       rules: {
         name: [

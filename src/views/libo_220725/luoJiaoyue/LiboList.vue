@@ -46,10 +46,23 @@
         </el-form-item>
       </el-col>
 
+      <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+        <el-form-item label="是否剩余">
+          <el-select v-model="ifResidue" clearable placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-col>
+
       <el-col :xs="24" :sm="24" :md="12" :lg="24" :xl="24">
         <el-button type="primary" icon="el-icon-plus" @click="save">新增</el-button>
         <el-button type="primary" icon="el-icon-search" @click="refresh">查询</el-button>
-<!--      <el-button type="primary" @click="reload">重置</el-button>-->
+      <el-button type="primary" @click="reload">重置</el-button>
       <br/><br/><br/>
       <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true">导入</el-button>
       <el-button type="primary" icon="el-icon-download" style="margin-left: 10px" @click="exportExcels">导出</el-button>
@@ -127,6 +140,18 @@
       />
       <el-table-column
         align="center"
+        prop="paidMoney"
+        label="已还礼金"
+        width="80%"
+      />
+      <el-table-column
+        align="center"
+        prop="residueMoney"
+        label="剩余礼金"
+        width="80%"
+      />
+      <el-table-column
+        align="center"
         prop="type"
         label="类型"
         width="80%"
@@ -141,6 +166,12 @@
         align="center"
         prop="personnel"
         label="人员"
+        width="120%"
+      />
+      <el-table-column
+        align="center"
+        prop="remark"
+        label="备注"
         width="120%"
       />
 
@@ -198,6 +229,14 @@ export default {
         moneyBefore:"",
         moneyEnd:""
       },
+      options: [{
+        value: 1,
+        label: '是'
+      }, {
+        value: 0,
+        label: '否'
+      }],
+      ifResidue: '',
       total: 0,
       tableData: [],
       fileList: [], // 上传的文件列表
@@ -220,7 +259,8 @@ export default {
           type:"",
           personnel:"",
           moneyBefore:"",
-          moneyEnd:""
+          moneyEnd:"",
+          ifResidue: "",
       },
       this.refresh()
     },

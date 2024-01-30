@@ -20,6 +20,18 @@
     </el-col>
 
     <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+      <el-form-item label="已还礼金" prop="paidMoney">
+        <el-input v-model="ruleForm.paidMoney" readonly />
+      </el-form-item>
+    </el-col>
+
+    <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+      <el-form-item label="剩余礼金" prop="residueMoney">
+        <el-input v-model="ruleForm.residueMoney" readonly />
+      </el-form-item>
+    </el-col>
+
+    <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
       <el-form-item label="礼品" prop="present">
         <el-input v-model="ruleForm.present" readonly />
       </el-form-item>
@@ -34,6 +46,12 @@
     <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
       <el-form-item label="人员" prop="personnel">
         <el-input v-model="ruleForm.personnel" readonly />
+      </el-form-item>
+    </el-col>
+
+    <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+      <el-form-item label="备注" prop="remark">
+        <el-input v-model="ruleForm.remark" readonly />
       </el-form-item>
     </el-col>
 
@@ -57,9 +75,12 @@ export default {
         name: '',
         money: '',
         address: '',
+        paidMoney: '',
+        residueMoney: '',
         present: '',
         type: '',
-        personnel: ''
+        personnel: '',
+        remark: ''
       }
     }
   },
