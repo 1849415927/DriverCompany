@@ -181,6 +181,18 @@
         label="备注"
         width="120%"
       />
+      <el-table-column
+        align="center"
+        prop="sumMoney"
+        label="总收礼金"
+        width="120%"
+      />
+      <el-table-column
+        align="center"
+        prop="residueSumMoney"
+        label="剩余总礼金"
+        width="120%"
+      />
 
       <el-table-column
         align="center"
@@ -200,7 +212,7 @@
       background
       layout="total, sizes, prev, pager, next, jumper"
       :page-size="data.size"
-      :page-sizes="[10, 20, 50, 100, 200]"
+      :page-sizes="[10, 20, 50, 100, 200, 500]"
       :total="total"
       @current-change="page"
       @size-change="handleSizeChange"

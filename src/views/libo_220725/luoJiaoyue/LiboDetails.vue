@@ -55,6 +55,18 @@
       </el-form-item>
     </el-col>
 
+    <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+      <el-form-item label="总收礼金" prop="sumMoney">
+        <el-input v-model="ruleForm.sumMoney" readonly />
+      </el-form-item>
+    </el-col>
+
+    <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
+      <el-form-item label="剩余总礼金" prop="residueSumMoney">
+        <el-input v-model="ruleForm.residueSumMoney" readonly />
+      </el-form-item>
+    </el-col>
+
     <el-form-item>
       <el-button type="primary" style="margin-left: 40%;margin-top: 10%" @click="goback('ruleForm')">返回</el-button>
     </el-form-item>
@@ -80,7 +92,9 @@ export default {
         present: '',
         type: '',
         personnel: '',
-        remark: ''
+        remark: '',
+        sumMoney: '',
+        residueSumMoney: ''
       }
     }
   },
