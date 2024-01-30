@@ -26,7 +26,14 @@
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
         <el-form-item label="类型">
-          <el-input v-model="data.type" type="text" placeholder="请输入类型"></el-input>
+          <el-select v-model="data.type" clearable placeholder="请选择">
+            <el-option
+              v-for="item in typeOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
@@ -48,7 +55,7 @@
 
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
         <el-form-item label="是否剩余">
-          <el-select v-model="ifResidue" clearable placeholder="请选择">
+          <el-select v-model="data.ifResidue" clearable placeholder="请选择">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -227,7 +234,8 @@ export default {
         type:"",
         personnel:"",
         moneyBefore:"",
-        moneyEnd:""
+        moneyEnd:"",
+        ifResidue:"",
       },
       options: [{
         value: 1,
@@ -236,7 +244,16 @@ export default {
         value: 0,
         label: '否'
       }],
-      ifResidue: '',
+      typeOptions: [{
+        value: "内收",
+        label: '内收'
+      }, {
+        value: "外收",
+        label: '外收'
+      }, {
+        value: "同学",
+        label: '同学'
+      }],
       total: 0,
       tableData: [],
       fileList: [], // 上传的文件列表

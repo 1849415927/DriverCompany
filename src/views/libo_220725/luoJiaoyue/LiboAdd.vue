@@ -21,7 +21,7 @@
 
     <el-col :span="12">
        <el-form-item label="已还礼金" prop="paidMoney">
-         <el-input v-model="ruleForm.paidMoney" disabled/>
+         <el-input v-model="ruleForm.paidMoney"/>
        </el-form-item>
     </el-col>
 
@@ -32,8 +32,15 @@
     </el-col>
 
     <el-col :span="12">
-      <el-form-item label="类型" prop="type">
-        <el-input v-model="ruleForm.type"/>
+      <el-form-item label="类型">
+        <el-select v-model="ruleForm.type" clearable placeholder="请选择">
+          <el-option
+            v-for="item in typeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
     </el-col>
 
@@ -82,6 +89,16 @@ export default {
         personnel: '',
         remark: ''
       },
+      typeOptions: [{
+        value: "内收",
+        label: '内收'
+      }, {
+        value: "外收",
+        label: '外收'
+      }, {
+        value: "同学",
+        label: '同学'
+      }],
       rules: {
         name: [
           { required: true, message: '请输入姓名', trigger: 'blur' }
